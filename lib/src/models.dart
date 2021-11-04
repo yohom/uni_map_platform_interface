@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'options.dart';
 
+abstract class IOverlay {
+  Future<void> remove();
+}
+
 /// 地图标记
-abstract class IMarker {
+abstract class IMarker extends IOverlay {
   /// 获取标题
   Future<String> get title;
 
@@ -17,9 +21,6 @@ abstract class IMarker {
 
   /// 获取自定义信息
   Future<String> get object;
-
-  /// 删除marker
-  Future<void> remove();
 
   /// 设置坐标
   Future<void> setCoordinate(LatLng coordinate);
@@ -55,16 +56,12 @@ abstract class IMarker {
 }
 
 /// 平滑移动点
-abstract class ISmoothMoveMarker {
-  Future<void> remove();
-
+abstract class ISmoothMoveMarker extends IOverlay {
   Future<void> stop();
 }
 
 /// 折线
-abstract class IPolyline {
-  Future<void> remove();
-
+abstract class IPolyline extends IOverlay {
   /// 重新设置折线点列表
   ///
   /// 可用于轨迹记录
@@ -72,42 +69,32 @@ abstract class IPolyline {
 }
 
 /// 多边形
-abstract class IPolygon {
-  Future<void> remove() {
-    throw UnimplementedError();
-  }
-
+abstract class IPolygon extends IOverlay {
   Future<bool> contains(LatLng target);
 }
 
 /// 圆形
-abstract class ICircle {
-  Future<void> remove();
+abstract class ICircle extends IOverlay {
+  /// 设置坐标
+  Future<void> setCoordinate(LatLng coordinate);
+
+  /// 设置半径
+  Future<void> setRadius(double radius);
 }
 
 /// 热力图
-abstract class IHeatmapOverlay {
-  Future<void> remove();
-}
+abstract class IHeatmapOverlay extends IOverlay {}
 
-/// 热力图
-abstract class IUrlTileOverlay {
-  Future<void> remove();
-}
+/// 瓦片图
+abstract class IUrlTileOverlay extends IOverlay {}
 
 /// 图片覆盖物
-abstract class IGroundOverlay {
-  Future<void> remove();
-}
+abstract class IGroundOverlay extends IOverlay {}
 
 /// 海量点
-abstract class IMultiPointOverlay {
-  Future<void> remove();
-}
+abstract class IMultiPointOverlay extends IOverlay {}
 
 /// 回放轨迹
-abstract class IPlaybackTrace {
-  Future<void> remove();
-
+abstract class IPlaybackTrace extends IOverlay {
   Future<void> stop();
 }
