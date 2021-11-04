@@ -1,6 +1,6 @@
 name: uni_map_platform_interface
 description: Uni Map Platform Interface.
-version: 0.6.0-dev.0
+version: 0.6.0-dev.1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
