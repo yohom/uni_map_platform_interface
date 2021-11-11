@@ -41,10 +41,10 @@ class MyLocationOption {
   /// 图标
   ///
   /// 资源图片则使用[AssetImage], 网络图片则使用[NetworkImage], 文件图片则使用[FileImage]
-  final ImageProvider iconProvider;
+  final ImageProvider? iconProvider;
 
   /// 锚点
-  final double anchorU, anchorV;
+  final double? anchorU, anchorV;
 
   @override
   String toString() {
@@ -56,7 +56,7 @@ class MyLocationOption {
 @immutable
 class MarkerOption {
   MarkerOption({
-    @required this.coordinate,
+    required this.coordinate,
     this.title = '',
     this.snippet = '',
     this.widget,
@@ -71,6 +71,7 @@ class MarkerOption {
     this.iconProvider,
     this.iconsProvider,
     this.animationFps,
+    this.infoWindow,
   }) : assert(!(widget != null && iconProvider != null),
             'widget和iconProvider不能同时设置! ');
 
@@ -87,7 +88,7 @@ class MarkerOption {
   ///
   /// 不能和[iconProvider]一起用.
   /// 注意控制Widget的大小, 比如Column默认是max, 会使用地图的高度, 那么此时需要设置成min.
-  final Widget widget;
+  final Widget? widget;
 
   /// 是否可拖动
   final bool draggable;
@@ -108,21 +109,23 @@ class MarkerOption {
   final double anchorV;
 
   /// 自定义数据 理论上可以使用任何类型的数据, 但是为了减少意外情况, 这里一律转换成String来保存
-  final String object;
+  final String? object;
 
   /// 透明度
-  final double opacity;
+  final double? opacity;
 
   /// 图标
-  final ImageProvider iconProvider;
+  final ImageProvider? iconProvider;
 
   /// 帧动画图标
-  final List<ImageProvider> iconsProvider;
+  final List<ImageProvider>? iconsProvider;
 
   /// 帧动画帧率
   ///
   /// 最大60, 最小3
-  final int animationFps;
+  final int? animationFps;
+
+  final Widget? infoWindow;
 
   @override
   String toString() {
@@ -134,9 +137,9 @@ class MarkerOption {
 @immutable
 class SmoothMoveMarkerOption {
   SmoothMoveMarkerOption({
-    @required this.path,
-    @required this.duration,
-    @required this.iconProvider,
+    required this.path,
+    required this.duration,
+    required this.iconProvider,
   });
 
   /// 轨迹经纬度列表
@@ -158,7 +161,7 @@ class SmoothMoveMarkerOption {
 @immutable
 class PolylineOption {
   PolylineOption({
-    @required this.coordinateList,
+    required this.coordinateList,
     this.width = 5,
     this.strokeColor = Colors.green,
     this.textureProvider,
@@ -177,16 +180,16 @@ class PolylineOption {
   final Color strokeColor;
 
   /// 自定义纹理
-  final ImageProvider textureProvider;
+  final ImageProvider? textureProvider;
 
   /// 线段末端样式
-  final LineCapType lineCapType;
+  final LineCapType? lineCapType;
 
   /// 线段连接处样式
-  final LineJoinType lineJoinType;
+  final LineJoinType? lineJoinType;
 
   /// 是否虚线
-  final DashType dashType;
+  final DashType? dashType;
 
   @override
   String toString() {
@@ -198,7 +201,7 @@ class PolylineOption {
 @immutable
 class PolygonOption {
   PolygonOption({
-    @required this.coordinateList,
+    required this.coordinateList,
     this.width = 5,
     this.strokeColor = Colors.green,
     this.fillColor = Colors.transparent,
@@ -218,7 +221,7 @@ class PolygonOption {
   final Color fillColor;
 
   /// z index
-  final double zIndex;
+  final double? zIndex;
 
   @override
   String toString() {
@@ -245,13 +248,12 @@ class CircleOption {
   final Color fillColor;
 
   CircleOption({
-    @required this.center,
-    @required this.radius,
+    required this.center,
+    required this.radius,
     this.width = 5,
     this.strokeColor = Colors.green,
     this.fillColor = Colors.transparent,
-  })  : assert(center != null),
-        assert(radius != null);
+  });
 
   @override
   String toString() {
@@ -263,7 +265,7 @@ class CircleOption {
 @immutable
 class HeatmapTileOption {
   HeatmapTileOption({
-    @required this.coordinateList,
+    required this.coordinateList,
     this.gradient,
   });
 
@@ -274,7 +276,7 @@ class HeatmapTileOption {
   ///
   /// [RadialGradient.stops]的值范围为(0,1), 默认值为[0.2,0.5,0.9]
   /// [RadialGradient.stops]和[RadialGradient.colors]列表的长度必须一致
-  final RadialGradient gradient;
+  final RadialGradient? gradient;
 
   @override
   String toString() {
@@ -286,9 +288,9 @@ class HeatmapTileOption {
 @immutable
 class GroundOverlayOption {
   GroundOverlayOption({
-    @required this.southWest,
-    @required this.northEast,
-    @required this.imageProvider,
+    required this.southWest,
+    required this.northEast,
+    required this.imageProvider,
   });
 
   final LatLng southWest;
@@ -305,9 +307,9 @@ class GroundOverlayOption {
 @immutable
 class UrlTileOption {
   UrlTileOption({
-    @required this.width,
-    @required this.height,
-    @required this.urlTemplate,
+    required this.width,
+    required this.height,
+    required this.urlTemplate,
   });
 
   /// 单位瓦片图宽度
@@ -332,7 +334,7 @@ class UrlTileOption {
 @immutable
 class MultiPointOption {
   MultiPointOption({
-    @required this.pointList,
+    required this.pointList,
     this.iconProvider,
   });
 
@@ -340,7 +342,7 @@ class MultiPointOption {
   final List<PointOption> pointList;
 
   /// 图标
-  final ImageProvider iconProvider;
+  final ImageProvider? iconProvider;
 
   @override
   String toString() {
@@ -352,7 +354,7 @@ class MultiPointOption {
 @immutable
 class PointOption {
   PointOption({
-    @required this.coordinate,
+    required this.coordinate,
     this.id,
     this.title,
     this.snippet,
@@ -363,16 +365,16 @@ class PointOption {
   final LatLng coordinate;
 
   /// 点的id列表, 用来区分点
-  final String id;
+  final String? id;
 
   /// 标题列表
-  final String title;
+  final String? title;
 
   /// 副标题列表
-  final String snippet;
+  final String? snippet;
 
   /// 自定义数据
-  final String object;
+  final String? object;
 
   @override
   String toString() {
@@ -392,19 +394,19 @@ class MapMove {
   });
 
   /// 经纬度
-  final LatLng coordinate;
+  final LatLng? coordinate;
 
   /// 缩放等级
-  final double zoom;
+  final double? zoom;
 
   /// 倾斜度
-  final double tilt;
+  final double? tilt;
 
   /// 朝向
-  final double bearing;
+  final double? bearing;
 
   /// 是否是国外
-  final bool isAbroad;
+  final bool? isAbroad;
 
   @override
   String toString() {
@@ -416,11 +418,11 @@ class MapMove {
 @immutable
 class TraceLocation {
   TraceLocation({
-    @required this.latitude,
-    @required this.longitude,
-    @required this.speed,
-    @required this.bearing,
-    @required this.time,
+    required this.latitude,
+    required this.longitude,
+    required this.speed,
+    required this.bearing,
+    required this.time,
   });
 
   final double latitude;
@@ -439,12 +441,12 @@ class TraceLocation {
 @immutable
 class TrafficOption {
   TrafficOption({
-    @required this.show,
+    required this.show,
     this.goodColor = Colors.green,
     this.badColor = Colors.yellow,
     this.terribleColor = Colors.red,
     this.unknownColor = Colors.blue,
-  }) : assert(show != null);
+  });
 
   /// 是否显示
   final bool show;
@@ -481,8 +483,8 @@ class MarkerAnimation {
   final Duration duration;
   final int repeatCount;
   final RepeatMode repeatMode;
-  final double fromValue;
-  final double toValue;
+  final double? fromValue;
+  final double? toValue;
 
   @override
   String toString() {
@@ -497,8 +499,8 @@ class ScaleMarkerAnimation extends MarkerAnimation {
     Duration duration = const Duration(seconds: 1),
     int repeatCount = 1,
     RepeatMode repeatMode = RepeatMode.Reverse,
-    double fromValue,
-    double toValue,
+    double? fromValue,
+    double? toValue,
   }) : super(duration, repeatCount, repeatMode, fromValue, toValue);
 
   @override
@@ -514,8 +516,8 @@ class AlphaMarkerAnimation extends MarkerAnimation {
     Duration duration = const Duration(seconds: 1),
     int repeatCount = 1,
     RepeatMode repeatMode = RepeatMode.Reverse,
-    double fromValue,
-    double toValue,
+    double? fromValue,
+    double? toValue,
   }) : super(duration, repeatCount, repeatMode, fromValue, toValue);
 
   @override
@@ -531,8 +533,8 @@ class RotateMarkerAnimation extends MarkerAnimation {
     Duration duration = const Duration(seconds: 1),
     int repeatCount = 1,
     RepeatMode repeatMode = RepeatMode.Reverse,
-    double fromValue,
-    double toValue,
+    double? fromValue,
+    double? toValue,
   }) : super(duration, repeatCount, repeatMode, fromValue, toValue);
 
   @override
@@ -548,7 +550,7 @@ class TranslateMarkerAnimation extends MarkerAnimation {
     Duration duration = const Duration(seconds: 1),
     int repeatCount = 1,
     RepeatMode repeatMode = RepeatMode.Reverse,
-    @required this.coordinate,
+    required this.coordinate,
   }) : super(duration, repeatCount, repeatMode, null, null);
 
   final LatLng coordinate;
@@ -564,12 +566,12 @@ class TranslateMarkerAnimation extends MarkerAnimation {
 class MarkerAnimationSet extends MarkerAnimation {
   MarkerAnimationSet({
     this.animationSet,
-    Duration duration,
+    required Duration duration,
     int repeatCount = 1,
     RepeatMode repeatMode = RepeatMode.Reverse,
   }) : super(duration, repeatCount, repeatMode, null, null);
 
-  final List<MarkerAnimation> animationSet;
+  final List<MarkerAnimation>? animationSet;
 
   @override
   String toString() {
