@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:core_location_fluttify/core_location_fluttify.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'enums.dart';
 import 'models.dart';
