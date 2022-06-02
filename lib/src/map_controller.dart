@@ -30,7 +30,7 @@ abstract class IMapController {
   Future<IUrlTileOverlay> addUrlTileOverlay(UrlTileOption option);
 
   /// Get current location.
-  Future<LatLng> getLocation();
+  Future<LatLng?> getLocation();
 
   /// Show my location with [option].
   Future<void> showMyLocation(MyLocationOption option);
@@ -80,7 +80,7 @@ abstract class IMapController {
   Future<void> setZoomLevel(double level, {bool animated = true});
 
   /// 获取当前缩放大小
-  Future<double> getZoomLevel();
+  Future<double?> getZoomLevel();
 
   /// 设置缩放是否以中心点为锚点
   Future<void> setZoomByCenter(bool byCenter);
@@ -96,14 +96,14 @@ abstract class IMapController {
   /// [lat]纬度, [lng]经度, [zoomLevel]缩放等级, [bearing]地图选择角度, [tilt]倾斜角
   Future<void> setCenterCoordinate(
     LatLng coordinate, {
-    double zoomLevel,
-    double bearing,
-    double tilt,
+    double? zoomLevel,
+    double? bearing,
+    double? tilt,
     bool animated = true,
   });
 
   /// 获取地图中心点
-  Future<LatLng> getCenterCoordinate();
+  Future<LatLng?> getCenterCoordinate();
 
   /// 添加marker
   ///
@@ -126,10 +126,10 @@ abstract class IMapController {
   Future<void> clear({bool keepMyLocation = true});
 
   /// 屏幕坐标转经纬度坐标
-  Future<LatLng> fromScreenLocation(Point point);
+  Future<LatLng?> fromScreenLocation(Point point);
 
   /// 经纬度坐标转屏幕坐标
-  Future<Point> toScreenLocation(LatLng coordinate);
+  Future<Point?> toScreenLocation(LatLng coordinate);
 
   /// 添加折线
   ///
@@ -151,9 +151,9 @@ abstract class IMapController {
 
   /// 设置marker拖动监听事件
   Future<void> setMarkerDragListener({
-    OnMarkerDrag onMarkerDragStart,
-    OnMarkerDrag onMarkerDragging,
-    OnMarkerDrag onMarkerDragEnd,
+    OnMarkerDrag? onMarkerDragStart,
+    OnMarkerDrag? onMarkerDragging,
+    OnMarkerDrag? onMarkerDragEnd,
   });
 
   /// 设置地图点击监听事件
@@ -164,13 +164,13 @@ abstract class IMapController {
 
   /// 设置地图移动监听事件
   Future<void> setMapMoveListener({
-    OnMapMove onMapMoveStart,
-    OnMapMove onMapMoving,
-    OnMapMove onMapMoveEnd,
+    OnMapMove? onMapMoveStart,
+    OnMapMove? onMapMoving,
+    OnMapMove? onMapMoveEnd,
   });
 
   /// 截图
-  Future<Uint8List> screenShot();
+  Future<Uint8List?> screenShot();
 
   /// 限制地图的显示范围
   ///
@@ -228,10 +228,10 @@ abstract class IMapController {
 
   /// 一次性设置地图视角
   Future<void> setCameraPosition({
-    @required LatLng coordinate,
-    double zoom,
-    double tilt,
-    double bearing,
+    required LatLng coordinate,
+    double? zoom,
+    double? tilt,
+    double? bearing,
     bool animated = true,
     Duration duration = const Duration(milliseconds: 500),
   });
@@ -248,12 +248,12 @@ abstract class IMapController {
   /// 根据起点[from]和终点[to]坐标, 搜索出路径并将驾车路线规划结果[driveRouteResult]添加到地图上, 可以配置交通拥堵情况[trafficOption],
   /// 路线的宽度[lineWidth], 自定纹理[customTexture].
   Future<void> addDriveRoute({
-    @required LatLng from,
-    @required LatLng to,
-    List<LatLng> passbyPointList,
-    TrafficOption trafficOption,
+    required LatLng from,
+    required LatLng to,
+    List<LatLng>? passbyPointList,
+    TrafficOption? trafficOption,
     double lineWidth = 10,
-    ImageProvider customTexture,
+    ImageProvider? customTexture,
   });
 
   /// 添加地区轮廓
@@ -289,8 +289,8 @@ abstract class IMapController {
     List<LatLng> coordinateList, {
     double width = 5,
     Color strokeColor = Colors.green,
-    @required ImageProvider iconProvider,
-    @required Duration duration,
+    required ImageProvider iconProvider,
+    required Duration duration,
   });
 
   /// 给地图添加padding
